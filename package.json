@@ -40,10 +40,13 @@
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.4.2",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react-dom": "^15.1.0",
+    "react": "^15.6.1"
   }
 }

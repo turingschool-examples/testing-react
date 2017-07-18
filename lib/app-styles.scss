@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+//HEADER STYLES
+
+.logo-todont {
+  color: #00A79D;
+}
+
+.logo-box {
+  color: #6D6E71;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 2em;
+}
+
+.header {
+  background-color: #E5F3F2;
+  height: 26vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  height: 75%;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.form input {
+  border: 1px solid #D1D3D4;
+  height: 25px;
+}
+
+.form input, .form button {
+  margin: 5px;
+  font-size: .8em;
+}
+
+.form button {
+  height: 30px;
+  background-color: #00A79D;
+  color: #FFF;
+  border: none;
+  &:hover {
+    background-color: #045E55;
+    cursor: pointer;
+  }
+}
