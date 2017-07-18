@@ -46,6 +46,7 @@ body {
 .form input {
   border: 1px solid #D1D3D4;
   height: 25px;
+  padding: 2.5px;
 }
 
 .form input, .form button {
@@ -62,4 +63,13 @@ body {
     background-color: #045E55;
     cursor: pointer;
   }
+  &:disabled, &:disabled:hover {
+    cursor: not-allowed;
+    background-color: #939598;
+  }
+}
+
+.no-todonts-msg {
+  margin: 10px auto;
+  text-align: center;
 }
