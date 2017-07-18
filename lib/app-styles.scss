@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
+$gray: #D1D3D4;
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -72,4 +73,27 @@ body {
 .no-todonts-msg {
   margin: 10px auto;
   text-align: center;
+}
+
+.toDont-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid $gray;
+  width: 80%;
+}
+
+.toDont-card h1 {
+  color: #6D6E71;
+  font-size: 2em;
+  font-family: 'Roboto Slab', serif;
+}
+
+.toDont-list {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  align-items: center;
 }
