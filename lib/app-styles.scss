@@ -6,6 +6,16 @@ body {
   font-weight: 400;
 }
 
+button {
+  &:hover {
+    cursor: pointer;
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
 //HEADER STYLES
 
 .logo-todont {
@@ -62,7 +72,6 @@ body {
   border: none;
   &:hover {
     background-color: #045E55;
-    cursor: pointer;
   }
   &:disabled, &:disabled:hover {
     cursor: not-allowed;
@@ -81,7 +90,10 @@ body {
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid $gray;
-  width: 80%;
+  width: 60%;
+  justify-content: space-around;
+  height: 15vh;
+  position: relative;
 }
 
 .toDont-card h1 {
@@ -96,4 +108,22 @@ body {
   flex-direction: column;
   width: 90%;
   align-items: center;
+}
+
+.delete-card {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.card-btn {
+  font-size: 1em;
+  border: none;
+  background-color: #FFF;
+}
+
+.quality-section {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
