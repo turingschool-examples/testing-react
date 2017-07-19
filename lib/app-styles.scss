@@ -137,19 +137,38 @@ button {
 .quality-section {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: center;
   margin-top: 10px;
 }
 
 .card-body {
   overflow: scroll;
   max-height: 75px;
+  font-size: 1.2em;
 }
 
 .quality {
   font-size: 18px;
+  align-self: center;
+}
+
+.quality-rank {
+  font-size: 22px;
+  margin-left: 5px;
+}
+
+.btn-placeholder {
+  font-size: 1em;
+  border: none;
+  background-color: #FFF;
+  min-width: 25px;
+  display: block;
 }
 
 .vote-btns {
+  display: flex;
+  flex-direction: row;
   min-width: 60px;
+  justify-content: space-around;
+  width: 60px;
 }
