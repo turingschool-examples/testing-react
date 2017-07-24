@@ -89,6 +89,8 @@ npm i --save-dev enzyme
 
 To understand the difference, check out [this breakdown](https://gist.github.com/fokusferit/e4558d384e4e9cab95d04e5f35d4f913)
 
+#### Work time!
+
 Enzyme also comes with some methods of its own. Let's spend another 10 minutes researching your assigned method (same groups as before):
 
 1. find()
