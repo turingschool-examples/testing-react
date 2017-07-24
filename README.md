@@ -30,6 +30,42 @@ npm test
 
 ---
 
+## Jest
+
+_Jest is the de facto unit testing framework for ReactJS project. It is provided and used by Facebook themselves._
+
+Top features are:
+
+* Automatically finds tests
+* Automatically mocks dependencies
+* Runs your tests with a fake DOM implementation
+* Runs tests in parallel processes
+
+To install: 
+
+```
+npm install --save-dev jest
+```
+
+Just like `chai`, just uses the `expect` keyword, only with some slight differences. One syntactical difference you'll want to make note of is the simple check that something equals and expected result...
+
+###### Chai:
+
+`expect(something).to.equal(true)`
+
+###### Jest:
+
+`expect(something).toEqual(true)`
+
+check out the [expect documentation](https://facebook.github.io/jest/docs/expect.html#content). Count off 1 thru 6, find your team and spend 10 mins reading up on your assigned method:
+
+1. toBeDefined()
+2. toHaveBeenCalled()
+3. toHaveLength(number)
+4. toEqual()
+5. toBe()
+6. toBeTruthy() && toBeFalsy() 
+
 ## Enzyme
 
 From the [enzyme](https://github.com/airbnb/enzyme) docs:
@@ -53,22 +89,14 @@ npm i --save-dev enzyme
 
 To understand the difference, check out [this breakdown](https://gist.github.com/fokusferit/e4558d384e4e9cab95d04e5f35d4f913)
 
-## Jest
+Enzyme also comes with some methods of its own. Let's spend another 10 minutes researching your assigned method (same groups as before):
 
-_Jest is the de facto unit testing framework for ReactJS project. It is provided and used by Facebook themselves._
-
-Top features are:
-
-* Automatically finds tests
-* Automatically mocks dependencies
-* Runs your tests with a fake DOM implementation
-* Runs tests in parallel processes
-
-To install: 
-
-```
-npm install --save-dev jest
-```
+1. find()
+2. props()
+3. instance()
+4. children()
+5. text()
+6. state()
 
 ## Why Test? 
 
@@ -132,6 +160,64 @@ describe('App', () => {
 })
 ```
 
+Now let's look at our app's `render` function, it returns a `Header` and a `ToDontList` component. Let's make sure those exist. We can use the 
+
+```
+// lib/components/App.js
+
+  render() {
+    const { toDonts } = this.state;
+
+    return (
+      <div>
+        <Header toDonts={ toDonts } addToDont={this.addToDont.bind(this)} />
+        <ToDontList toDonts={ toDonts }
+                    updateCard={(card) => this.updateCard(card)}
+                    deleteCard={(card) => this.deleteCard(card) }/>
+      </div>
+    )
+  }
+```
+
+```
+// tests/app.test.js
+
+  it('should render the Header and ToDontList component', () => {
+    const wrapper = shallow(<App />)
+
+    expect(wrapper.find('Header').length).toEqual(1)
+    expect(wrapper.find('ToDontList').length).toEqual(1)
+  })
+```
+
+But wait, we've now defined wrapper twice so let's pull that out into a `beforeEach`. Our test file should now look like this:
+
+```
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+import App from '../lib/components/App';
+
+describe('App', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<App />)
+  })
+
+  it('should exist', () => {
+    
+    expect(wrapper).toBeDefined()
+  })
+
+  it('should render the Header and ToDontList component', () => {
+
+    expect(wrapper.find('Header').length).toEqual(1)
+    expect(wrapper.find('ToDontList').length).toEqual(1)
+  })
+})
+```
+
+
 
 
 
@@ -142,4 +228,4 @@ describe('App', () => {
   * [Mount docs](https://github.com/airbnb/enzyme/blob/master/docs/api/mount.md)
 * [Difference between Shallow, Mount & Render](https://gist.github.com/fokusferit/e4558d384e4e9cab95d04e5f35d4f913)
 * [Worthwhile Testing by Dave Ceddia](https://daveceddia.com/what-to-test-in-react-app/)
-* 
+
