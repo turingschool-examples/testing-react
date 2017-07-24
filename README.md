@@ -55,6 +55,8 @@ Just like `chai`, just uses the `expect` keyword, only with some slight differen
 ###### Jest: 
 `expect(something).toEqual(true)`
 
+##### Work time!
+
 check out the [expect documentation](https://facebook.github.io/jest/docs/expect.html#content). Count off 1 thru 6, find your team and spend 10 mins reading up on your assigned method:
 
 1. toBeDefined()
