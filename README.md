@@ -94,6 +94,7 @@ Some things to consider...
 We will use this repo to work through some tests. This app _should_ look familiar. 
 
 * Clone this repo and `cd` into it
+* `git checkout in-class`
 * run `npm i`
 * open up your text editor and lets work through some tests!
 
@@ -111,3 +112,34 @@ touch app.test.js
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 ```
+
+We'll also need to import our `App` component:
+
+```
+import App from '../lib/components/App';
+```
+
+Now let's create an easy first test to ensure everything is hooked up and working:
+
+```
+describe('App', () => {
+  
+  it('should exist', () => {
+    const wrapper = shallow(<App />)
+    expect(wrapper).toBeDefined()
+  })
+
+})
+```
+
+
+
+
+##### Resources:
+* [Jest docs](https://facebook.github.io/jest/)
+* [Enzyme docs](https://github.com/airbnb/enzyme)
+  * [Shallow docs](https://github.com/airbnb/enzyme/blob/master/docs/api/shallow.md)
+  * [Mount docs](https://github.com/airbnb/enzyme/blob/master/docs/api/mount.md)
+* [Difference between Shallow, Mount & Render](https://gist.github.com/fokusferit/e4558d384e4e9cab95d04e5f35d4f913)
+* [Worthwhile Testing by Dave Ceddia](https://daveceddia.com/what-to-test-in-react-app/)
+* 
