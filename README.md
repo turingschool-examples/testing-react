@@ -34,7 +34,7 @@ npm test
 
 _Jest is the de facto unit testing framework for ReactJS project. It is provided and used by Facebook themselves._
 
-Top features are:
+**Top features are:**
 
 * Automatically finds tests
 * Automatically mocks dependencies
