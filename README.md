@@ -49,9 +49,11 @@ npm install --save-dev jest
 
 Just like `chai`, just uses the `expect` keyword, only with some slight differences. One syntactical difference you'll want to make note of is the simple check that something equals and expected result...
 
-###### Chai: `expect(something).to.equal(true)`
+###### Chai:
+`expect(something).to.equal(true)`
 
-###### Jest: `expect(something).toEqual(true)`
+###### Jest: 
+`expect(something).toEqual(true)`
 
 check out the [expect documentation](https://facebook.github.io/jest/docs/expect.html#content). Count off 1 thru 6, find your team and spend 10 mins reading up on your assigned method:
 
