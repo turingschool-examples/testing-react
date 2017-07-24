@@ -223,6 +223,79 @@ describe('App', () => {
 })
 ```
 
+Now that we've tested the basic rendering of our App, let's look into some of the methods of our class. The first called is the `constructor()`, so let's make sure when we first mount our component (and localStorage is empty) that it has a state of `toDonts` set to an empty array. There are a couple tests we could write to accomplish this:
+
+```
+it('initially should have a state of toDonts set to an empty array', () => {
+
+    expect(wrapper.state()).toEqual({ toDonts: [] })
+    expect(wrapper.state().toDonts).toEqual(expect.arrayContaining([]))
+})
+```
+
+Next up is our `componentDidMount` which means we'll need to use `mount` from enzyme. If there is data saved in localStorage under the key `'toDonts'`, this method will call our `getFromLocal` method, pull items from localStorage and set them to 'toDonts' in state. Seems easy enough...
+
+```
+it('should retrieve data from local storage on mount', () => {
+    const toDonts = [
+      {title: 'title', body: 'body', id: 1}, 
+      {title: 'title', body: 'body', id: 2}
+    ]
+    
+    localStorage.setItem('toDonts', JSON.stringify(toDonts))
+
+    wrapper = mount(<App />)
+    expect(wrapper.state().toDonts).toEqual(toDonts)
+ })
+```
+
+Ah snap! What's this all about?
+
+``` 
+ReferenceError: localStorage is not defined
+```
+
+Because we're not dealing with a browser, `localStorage` isn't something our tests know about. This means we will have to do some extra work to mock localStorage for our tests. Jest makes this _somewhat_ easy for us by allowing us to set up some [configurations](http://facebook.github.io/jest/docs/en/configuration.html#content) in our `package.json` before each test. But first, we need to create a fake local storage. Give it a shot!
+
+We'll store this in a test-helpers folder and assign it to a global property called...localStorage!
+
+```
+// __test-helpers__/storageMock.js
+
+class LocalStorage {
+  constructor() {
+    this.store = {}
+  }
+
+  getItem(key) {
+    return this.store[key]
+  }
+
+  setItem(key, string) {
+    this.store[key] = string
+  }
+
+  clear() {
+    this.store = {}
+  }
+}
+
+global.localStorage = new LocalStorage;
+```
+Next we need to set up our jest configurations using the [setupFiles](http://facebook.github.io/jest/docs/en/configuration.html#setupfiles-array) option. This will run any code we want before each test.
+
+```
+// package.json
+
+"jest": {
+    "setupFiles": [
+      "./__test-helpers__/storageMock.js"
+    ]
+  },
+```
+
+Our test should now pass!
+
 
 ##### Resources:
 * [Jest docs](https://facebook.github.io/jest/)
