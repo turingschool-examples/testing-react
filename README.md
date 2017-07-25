@@ -666,6 +666,14 @@ WOOF, That's it!
 
 ![exhausted animal](https://img.buzzfeed.com/buzzfeed-static/static/2014-11/11/17/enhanced/webdr11/longform-original-32167-1415746043-14.jpg?downsize=715:*&output-format=auto&output-quality=auto)
 
+##### If You Get Errors, Some Things to Think About...
+* Do I need to be using `mount` instead of `shallow`?
+* Do I need to call something or reference something from the `wrapper.instance()` vs. just the `wrapper`
+* Use `console.log(thing.debug())` to see if you're looking at what you intend to
+* Is my wrapper/component modified from my last test (make sure you are controlling scope where necessary)
+* Do you need to mock a browser-specific method/object (like localStorage)?
+* Do you need to mock a function with `jest.fn()`
+
 ##### Resources:
 * [Jest docs](https://facebook.github.io/jest/)
 * [Enzyme docs](https://github.com/airbnb/enzyme)
