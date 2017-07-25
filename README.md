@@ -233,7 +233,7 @@ it('initially should have a state of toDonts set to an empty array', () => {
 })
 ```
 
-Next up is our `componentDidMount` which means we'll need to use `mount` from enzyme. If there is data saved in localStorage under the key `'toDonts'`, this method will call our `getFromLocal` method, pull items from localStorage and set them to 'toDonts' in state. Seems easy enough...
+Next up is our `componentDidMount` which means we'll need to use `mount` (from enzyme). If there is data saved in localStorage under the key `'toDonts'`, this method will call our `getFromLocal` method, pull items from localStorage and set them to 'toDonts' in state. Seems easy enough...
 
 ```
 it('should retrieve data from local storage on mount', () => {
@@ -416,6 +416,177 @@ Again...don't upset the puppy!
 
   })
   ```
+
+We've now tested that App component! 
+
+![happy pup](https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiu4czr5KTVAhXl7oMKHVQSC6IQjRwIBg&url=https%3A%2F%2Fwww.pinterest.com%2Fnickieland%2Fhappy-puppy%2F&psig=AFQjCNFBePYbF5vXytrPBdETvb24sVQJnw&ust=1501084276682809)
+
+Now let's go look at testing a scenario where we're adding and removing items from the DOM. Let's test the `ToDontList` component next. Let's get the file set up and create an initial test to ensure everything is hooked up correctly.
+
+```
+// toDontList.test.js
+
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+import ToDontList from '../lib/components/ToDontList';
+
+describe('toDontList component', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<ToDontList />)
+  })
+
+  it('should be a thing', () => {
+    expect(wrapper).toBeDefined()
+  })
+
+})
+```
+
+Well butter my buns and call me a buscuit! That didn't work.
+
+```
+ TypeError: Cannot read property 'length' of undefined
+```
+
+Looks like our component is expecting some props to be passed through, let's give the component what it wants. For now we can just pass an empty array.
+
+```
+beforeEach(() => {
+  wrapper = shallow(<ToDontList toDonts={ [] } />)
+})
+
+```
+
+Sweet Pete's soccer cleats! Passing test. 
+
+Now let's write some tests to ensure that:
+* The "add ToDonts" message displays when there are 0 toDonts
+* The correct number of `<ToDontCard />` components are on the DOM when they exist in state
+
+Give the first scenario a try and DON'T PISS OFF THE CATS!
+
+![angry cat 1](http://uploads.neatorama.com/images/posts/328/88/88328/1455494723-0.jpg)
+
+
+The first thing we need to do is find the `<div>` with the message in it. Let's use **.debug()** to look at what we've got.
+
+```
+const noToDontMessage = wrapper.find('div')
+
+console.log(noToDontMessage.debug())
+```
+
+Here is what our console log shows:
+
+```
+<div className="toDont-list">
+        <div className="no-todonts-msg">
+          Add some Don&#39;ts
+        </div>
+      </div>
+      
+      
+      <div className="no-todonts-msg">
+        Add some Don&#39;ts
+      </div>
+```
+
+That's awesome that we can take a peak into what we're getting from the wrapper, but we will have a hard time separating between the two divs. Let's be more specific. We could use a different HTML tag...or we could simply look for the class we want:
+
+```
+const noToDontMessage = wrapper.find('.no-todonts-msg')
+
+console.log(noToDontMessage.debug())
+```
+
+```
+ <div className="no-todonts-msg">
+        Add some Don&#39;ts
+      </div>
+```
+
+BOOM! JACKPOT! Now let's write a test to check the message:
+
+```
+it('should show message if no toDonts exist', () => {
+  const messageDiv = wrapper.find('.no-todonts-msg')
+
+  expect(messageDiv).toBeDefined()
+  expect(messageDiv.text()).toEqual("Add some Don'ts")
+})
+```
+
+Let's try to tackle the second bullet. If we pass through an array with toDonts to the `<ToDontList />` component, we should be able to test that the correct number of `<ToDontCard />` components exist. Give it a shot before you check the answer!
+
+![angry cat 2](http://i.imgur.com/d3BV5DM.jpg)
+
+```
+it('should append the correct number of ToDontCard\'s to the DOM', () => {
+  const toDonts = [
+    {title: 'title1', body: 'body1', id: 1},
+    {title: 'title2', body: 'body2', id: 2}
+  ]
+
+  wrapper = shallow(<ToDontList toDonts={toDonts}/>)
+
+  expect(wrapper.find('ToDontCard').length).toEqual(2)
+})
+```
+
+Cool, what are some other tests we could add to really test that this is working? Talk with the person next to you for 5 mins and come up with a couple. Don't read ahead, the cats are watching...
+
+![watching cat](http://www.coverbash.com/wp-content/covers/black-cat.jpg)
+
+Here are a couple I came up with:
+
+```
+it('should append the correct number of ToDontCard\'s to the DOM', () => {
+    const toDonts = [
+      {title: 'title1', body: 'body1', id: 1},
+      {title: 'title2', body: 'body2', id: 2}
+    ]
+
+    wrapper = shallow(<ToDontList toDonts={toDonts}/>)
+
+    const firstCard = wrapper.find('ToDontCard').first()
+    const lastCard = wrapper.find('ToDontCard').last()
+
+    expect(wrapper.find('ToDontCard').length).toEqual(2)
+    expect(firstCard.props().toDont.title).toEqual('title1')
+    expect(firstCard.props().toDont.body).toEqual('body1')
+    expect(lastCard.props().toDont.title).toEqual('title2')
+    expect(lastCard.props().toDont.body).toEqual('body2')
+  })
+```
+
+Oh hells yea! Component tested!
+
+![cat with gun](https://media2.giphy.com/media/bcqAMUTUHoLDy/200_s.gif)
+
+Last thing we'll work on is some functional testing to ensure buttons and other clickable stuff works the way we expect. Let's set up the new file:
+
+```
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+import Header from '../lib/components/Header';
+
+describe('header component', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<Header />)
+  })
+
+  it('should be a thing', () => {
+    expect(wrapper).toBeDefined()
+  })
+
+})
+```
+
+
 
 ##### Resources:
 * [Jest docs](https://facebook.github.io/jest/)
