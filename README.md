@@ -427,7 +427,7 @@ Again...don't upset the puppy!
 
 We've now tested that App component! 
 
-![happy pup](https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiu4czr5KTVAhXl7oMKHVQSC6IQjRwIBg&url=https%3A%2F%2Fwww.pinterest.com%2Fnickieland%2Fhappy-puppy%2F&psig=AFQjCNFBePYbF5vXytrPBdETvb24sVQJnw&ust=1501084276682809)
+![happy pup](http://justcuteanimals.com/wp-content/uploads/2016/02/french-bulldog-puppy-cute-dogs-pictures.jpg)
 
 Now let's go look at testing a scenario where we're adding and removing items from the DOM. Let's test the `ToDontList` component next. Let's get the file set up and create an initial test to ensure everything is hooked up correctly.
 
