@@ -296,6 +296,126 @@ Next we need to set up our jest configurations using the [setupFiles](http://fac
 
 Our test should now pass!
 
+Now we will continue down the line testing the various methods within our App. Next up is `addToDont` which is the method that updates both state and local storage. Take a crack at writing a test for this! Here is some pseudo code to help you out.
+
+```
+// set up an 'it' block (obvi)
+// our 'beforeEach' has already created the wrapper
+// write a test to check that the wrapper's state of 'toDonts' has a length of 0 
+   (or add some and test whatever length is applicable)
+// create a toDont...something like { title: 'title', body: 'body', id: 1 }
+// call the addToDont() method -- if you run into errors, check out instance() in the shallow docs
+// write a test to check that the state of toDonts has increased by 1
+// write a test to check that localStorage has the correct count of toDonts
+
+```
+
+Your test should looks something like this:
+
+```
+
+  it('should be able to add a toDont to state', () => {
+    expect(wrapper.state().toDonts.length).toEqual(0)
+
+    const toDonts = [
+      { title: 'title1', body: 'body1', id: 1 },
+      { title: 'title2', body: 'body2', id: 2 }
+    ]
+
+    wrapper.setState({ toDonts })
+
+    expect(wrapper.state().toDonts.length).toEqual(2)
+
+    const newToDont = { title: 'title3', body: 'body3', id: 3 }
+
+    wrapper.instance().addToDont(newToDont)
+
+    const itemsInStorage = JSON.parse(localStorage.getItem('toDonts')).length
+
+    expect(wrapper.state().toDonts.length).toEqual(3)
+    expect(wrapper.state().toDonts[0]).toEqual(newToDont)
+    expect(itemsInStorage).toEqual(3)
+  })
+
+```
+
+Now try to write a test for the `updateLocalStorage()` method. Don't look ahead or this disappointed puppy will be even MORE dissapointed in you...
+
+![mad pup](http://i.huffpost.com/gen/3245948/thumbs/n-EARL-THE-GRUMPY-DOG-PUPPY-768x768.jpg)
+
+Here is what your test should look like:
+
+```
+it('should update local storage', () => {
+    const toDonts = [
+      { title: 'title1', body: 'body1', id: 1 },
+      { title: 'title2', body: 'body2', id: 2 }
+    ]
+
+    wrapper.setState({ toDonts })
+
+    wrapper.instance().updateLocalStorage()
+
+    const itemsInStorage = JSON.parse(localStorage.getItem('toDonts')).length
+
+    expect(itemsInStorage).toEqual(2)
+  })
+```
+
+Next: `updateCard(card)`
+
+Again...don't upset the puppy!
+
+![angry pup 2](http://doglers.com/wp-content/gallery/cavalier-king-charles-spaniel-1/Angry-puppy-face-cavalier-king-charles-spaniel.jpg)
+
+```
+  it('should be able to update a specific card', () => {
+
+    const toDonts = [
+      { title: 'title1', body: 'body1', id: 1 },
+      { title: 'title2', body: 'body2', id: 2 }
+    ]
+
+    wrapper.setState({ toDonts })
+
+    const updatedCard = { title: 'newTitle', body: 'newBody', id: 1}
+
+    wrapper.instance().updateCard(updatedCard)
+
+    expect(wrapper.state().toDonts[0]).toEqual(updatedCard)
+  })
+  ```
+  
+  Last one: `deleteCard(card)`
+  
+  Again, no cheating!
+  
+  ![angry pup 3](http://www.urdogs.com/wp-content/uploads/2015/03/Came-and-catch-me-if-you-can.jpg)
+  
+  Here is the test...
+  
+  ```
+  it('should be able to delete a specific card', () => {
+    const card1 = { title: 'title1', body: 'body1', id: 1 }
+    const card2 = { title: 'title2', body: 'body2', id: 2 }
+
+    const toDonts = [
+      card1,
+      card2
+    ]
+
+    wrapper.setState({ toDonts })
+
+    wrapper.instance().deleteCard(card1)
+
+    let itemsInStorage = JSON.parse(localStorage.getItem('toDonts')).length
+
+    expect(wrapper.state().toDonts[0]).toEqual(card2)
+    expect(wrapper.state().toDonts.length).toEqual(1)
+    expect(itemsInStorage).toEqual(1)
+
+  })
+  ```
 
 ##### Resources:
 * [Jest docs](https://facebook.github.io/jest/)
