@@ -6,7 +6,12 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack.js",
-    "test": "jest --config test/*test.js"
+    "test": "jest"
+  },
+  "jest": {
+    "setupFiles": [
+      "./__test-helpers__/storageMock.js"
+    ]
   },
   "repository": {
     "type": "git",
