@@ -30,6 +30,16 @@ npm test
 
 ---
 
+## By the end of this lesson you should...
+* Understand how to navigate the jest docs
+* Understand how to navigate the enzyme docs
+* Have a good idea of why we test
+* Have a good idea of what to test
+* Have some understanding of how to test it
+* Be super pumped to go test every component in your app
+
+---
+
 ## Jest
 
 _Jest is the de facto unit testing framework for ReactJS project. It is provided and used by Facebook themselves._
@@ -586,7 +596,76 @@ describe('header component', () => {
 })
 ```
 
+Now for the tricky part. Our goal is to test that when the submit button is clicked, it calls the correct function it's supposed to. To do this, we'll need to do a couple things:
+* Stub in a [jest.fn()](http://facebook.github.io/jest/docs/jest-object.html#jestfnimplementation) in place of our actual function
+* Find the specific button
+* Simulate a click event
 
+The test will look something like this...
+
+```
+it('should call submitIdea when button is clicked', () => {
+ wrapper.instance().submitIdea = jest.fn()
+
+ const submitButton = wrapper.find('button')
+
+ submitButton.simulate('click')
+
+ expect(wrapper.instance().submitIdea).toHaveBeenCalledTimes(0)
+})
+```
+
+That's a great test, it assures us that our button executes the correct method. But let's take it a step further. Take a few minutes to review this test and then talk to the person next to you about what is happening.
+
+```
+it('should call submitIdea and update state when button is clicked', () => {
+ wrapper.instance().submitIdea = jest.fn()
+
+ const titleInput = wrapper.find('input').first()
+ const bodyInput = wrapper.find('input').filterWhere(x => x.props().placeholder === 'Body')
+ const submitButton = wrapper.find('button')
+
+ titleInput.simulate('change', { target: { value: 'title 1'}})
+ bodyInput.simulate('change', { target: { value: 'body 1'}})
+
+ submitButton.simulate('click')
+
+ expect(wrapper.instance().submitIdea).toHaveBeenCalled()
+ expect(wrapper.instance().submitIdea).toHaveBeenCalledTimes(1)
+})
+```
+
+What if we want to dig into the `submitIdea` function and ensure that the props.addToDont gets called within that method...given the infromation you gained above, take 5 minutes to talk to the person next to you about how you might accomplish this.
+
+![thinking dog](https://img.buzzfeed.com/buzzfeed-static/static/imagebuzz/web04/2010/5/4/20/thinking-dog-29734-1273020615-35.jpg)
+
+Here is what it might look like...
+
+```
+it('should call this.props.toDont and clear state fields', () => {
+ const mockFn = jest.fn()
+ wrapper = mount(<Header addToDont={ mockFn }/>)
+
+ const titleInput = wrapper.find('input').first()
+ const bodyInput = wrapper.find('input').filterWhere(x => x.props().placeholder === 'Body')
+ const submitButton = wrapper.find('button')
+
+ titleInput.simulate('change', { target: { value: 'title 1'}})
+ bodyInput.simulate('change', { target: { value: 'body 1'}})
+
+ expect(wrapper.state().title).toEqual('title 1')
+ expect(wrapper.state().body).toEqual('body 1')
+
+ submitButton.simulate('click')
+
+ expect(wrapper.props().addToDont).toHaveBeenCalled()
+ expect(wrapper.state().title).toEqual('')
+ expect(wrapper.state().body).toEqual('')
+})
+```
+
+WOOF, That's it! 
+![exhausted animal](https://img.buzzfeed.com/buzzfeed-static/static/2014-11/11/17/enhanced/webdr11/longform-original-32167-1415746043-14.jpg?downsize=715:*&output-format=auto&output-quality=auto)
 
 ##### Resources:
 * [Jest docs](https://facebook.github.io/jest/)
