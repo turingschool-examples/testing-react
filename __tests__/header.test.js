@@ -20,7 +20,7 @@ describe('header component', () => {
 
     submitButton.simulate('click')
 
-    expect(wrapper.instance().submitIdea).toHaveBeenCalledTimes(0)
+    expect(wrapper.instance().submitIdea).toHaveBeenCalledTimes(1)
 
   })
 
