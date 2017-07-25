@@ -385,6 +385,37 @@ Again...don't upset the puppy!
     expect(wrapper.state().toDonts[0]).toEqual(updatedCard)
   })
   ```
+  
+  Last one: `deleteCard(card)`
+  
+  Again, no cheating!
+  
+  ![angry pup 3](http://www.urdogs.com/wp-content/uploads/2015/03/Came-and-catch-me-if-you-can.jpg)
+  
+  Here is the test...
+  
+  ```
+  it('should be able to delete a specific card', () => {
+    const card1 = { title: 'title1', body: 'body1', id: 1 }
+    const card2 = { title: 'title2', body: 'body2', id: 2 }
+
+    const toDonts = [
+      card1,
+      card2
+    ]
+
+    wrapper.setState({ toDonts })
+
+    wrapper.instance().deleteCard(card1)
+
+    let itemsInStorage = JSON.parse(localStorage.getItem('toDonts')).length
+
+    expect(wrapper.state().toDonts[0]).toEqual(card2)
+    expect(wrapper.state().toDonts.length).toEqual(1)
+    expect(itemsInStorage).toEqual(1)
+
+  })
+  ```
 
 ##### Resources:
 * [Jest docs](https://facebook.github.io/jest/)
