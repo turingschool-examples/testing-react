@@ -637,7 +637,7 @@ it('should call submitIdea and update state when button is clicked', () => {
 
 What if we want to dig into the `submitIdea` function and ensure that the props.addToDont gets called within that method...given the infromation you gained above, take 5 minutes to talk to the person next to you about how you might accomplish this.
 
-![thinking dog](https://img.buzzfeed.com/buzzfeed-static/static/imagebuzz/web04/2010/5/4/20/thinking-dog-29734-1273020615-35.jpg)
+![thinking dog](http://dy5jipgyozh6.cloudfront.net/wp-content/uploads/2016/11/03202021/dog-thinking1.jpg)
 
 Here is what it might look like...
 
@@ -665,6 +665,7 @@ it('should call this.props.toDont and clear state fields', () => {
 ```
 
 WOOF, That's it! 
+
 ![exhausted animal](https://img.buzzfeed.com/buzzfeed-static/static/2014-11/11/17/enhanced/webdr11/longform-original-32167-1415746043-14.jpg?downsize=715:*&output-format=auto&output-quality=auto)
 
 ##### Resources:
