@@ -129,7 +129,7 @@ Some things to consider...
     * When you delete an item, is the count updated correctly? 
     
     
-## How to Test?
+## Time to Test!
 
 We will use this repo to work through some tests. This app _should_ look familiar. 
 
@@ -139,8 +139,6 @@ We will use this repo to work through some tests. This app _should_ look familia
 * open up your text editor and lets work through some tests!
 
 ---
-
-## Time to Test!
 
 Let's spend a few minutes walking through the code base to familiarize ourselves with the layout...
 
