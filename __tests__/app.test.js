@@ -5,10 +5,8 @@ import App from '../lib/components/App';
 describe('App', () => {
   let wrapper;
 
-
   beforeEach(() => {
     wrapper = shallow(<App />)
-
   })
 
   afterEach(() => {
@@ -45,10 +43,8 @@ describe('App', () => {
     expect(wrapper.state().toDonts).toEqual(toDonts)
   })
 
-  // WHERE README LEFT OFF
-
   it('should be able to add a toDont to state', () => {
-    wrapper = mount(<App />)
+    expect(wrapper.state().toDonts.length).toEqual(0)
 
     const toDonts = [
       { title: 'title1', body: 'body1', id: 1 },
@@ -71,8 +67,6 @@ describe('App', () => {
   })
 
   it('should update local storage', () => {
-    wrapper = mount(<App />)
-
     const toDonts = [
       { title: 'title1', body: 'body1', id: 1 },
       { title: 'title2', body: 'body2', id: 2 }
@@ -88,8 +82,6 @@ describe('App', () => {
   })
 
   it('should be able to update a specific card', () => {
-    wrapper = mount(<App />)
-
     const toDonts = [
       { title: 'title1', body: 'body1', id: 1 },
       { title: 'title2', body: 'body2', id: 2 }
@@ -105,7 +97,6 @@ describe('App', () => {
   })
 
   it('should be able to delete a specific card', () => {
-    wrapper = mount(<App />)
     const card1 = { title: 'title1', body: 'body1', id: 1 }
     const card2 = { title: 'title2', body: 'body2', id: 2 }
 
@@ -118,7 +109,7 @@ describe('App', () => {
 
     wrapper.instance().deleteCard(card1)
 
-    const itemsInStorage = JSON.parse(localStorage.getItem('toDonts')).length
+    let itemsInStorage = JSON.parse(localStorage.getItem('toDonts')).length
 
     expect(wrapper.state().toDonts[0]).toEqual(card2)
     expect(wrapper.state().toDonts.length).toEqual(1)
