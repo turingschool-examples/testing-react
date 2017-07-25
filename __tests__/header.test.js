@@ -16,6 +16,17 @@ describe('header component', () => {
   it('should call submitIdea when button is clicked', () => {
     wrapper.instance().submitIdea = jest.fn()
 
+    const submitButton = wrapper.find('button')
+
+    submitButton.simulate('click')
+
+    expect(wrapper.instance().submitIdea).toHaveBeenCalledTimes(0)
+
+  })
+
+  it('should call submitIdea and update state when button is clicked', () => {
+    wrapper.instance().submitIdea = jest.fn()
+
     const titleInput = wrapper.find('input').first()
     const bodyInput = wrapper.find('input').filterWhere(x => x.props().placeholder === 'Body')
     const submitButton = wrapper.find('button')
@@ -41,6 +52,9 @@ describe('header component', () => {
 
     titleInput.simulate('change', { target: { value: 'title 1'}})
     bodyInput.simulate('change', { target: { value: 'body 1'}})
+
+    expect(wrapper.state().title).toEqual('title 1')
+    expect(wrapper.state().body).toEqual('body 1')
 
     submitButton.simulate('click')
 
